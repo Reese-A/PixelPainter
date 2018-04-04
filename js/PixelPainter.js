@@ -84,7 +84,6 @@ for(let i=0;i<canvasButtons.length;i++){
   canvasButtons[i].addEventListener('mouseover', placePaint);
   canvasButtons[i].addEventListener('mouseup', stopPaint);
 }
-
 function startPaint() {
   canPaint = true;
 }
@@ -97,5 +96,21 @@ function pointPaint(){
 function placePaint(){
   if(canPaint === true){
   this.style.backgroundColor = currentColor;
+  }
+}
+
+//creates a clear canvas button
+let clearElem = document.createElement('div');
+let defaultGrid = '';
+clearElem.id = 'clear';
+pixelPainter.appendChild(clearElem);
+clear.innerHTML = 'Clear Canvas';
+clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', clearCanvas);
+function clearCanvas(event){
+  let defaultGrid = event.target.style.backgroundColor;
+  let gridCells = document.getElementsByClassName('gridCell');
+  for(let i=0;i<gridCells.length;i++){
+  gridCells[i].style.backgroundColor = defaultGrid;
   }
 }
