@@ -46,7 +46,9 @@ createColorGrid(1,20);
 
  //generates a random hex value and saves to color variable
 function ran_col() {
-  let color = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+  let color = "#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, '0');
+  console.log(color.length);
+  console.log(color);
   return color;
 }
 
@@ -56,7 +58,7 @@ function setColors(){
   colorSelect[0].style.background = 'rgb(255,255,255)';
   colorSelect[1].style.background = 'rgb(0,0,0)';
   for(let i=2;i<colorSelect.length;i++){
-  colorSelect[i].style.background = ran_col();
+  colorSelect[i].style.backgroundColor = ran_col();
   }
 }
 
@@ -73,5 +75,27 @@ function selectColor(event){
   console.log(currentColor);
 }
 
+//applies current color to canvas
+let canPaint = false;
+let canvasButtons = document.getElementsByClassName('gridCell');
+for(let i=0;i<canvasButtons.length;i++){
+  canvasButtons[i].addEventListener('click', pointPaint);
+  canvasButtons[i].addEventListener('mousedown', startPaint);
+  canvasButtons[i].addEventListener('mouseover', placePaint);
+  canvasButtons[i].addEventListener('mouseup', stopPaint);
+}
 
-
+function startPaint() {
+  canPaint = true;
+}
+function stopPaint(){
+  canPaint = false;
+}
+function pointPaint(){
+  this.style.backgroundColor = currentColor;
+}
+function placePaint(){
+  if(canPaint === true){
+  this.style.backgroundColor = currentColor;
+  }
+}
