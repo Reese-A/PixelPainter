@@ -1,0 +1,29 @@
+.grid{
+	display: table;
+	width: 100%;
+}
+.gridRow {
+	display: table-row;
+}
+/* .gridHeading {
+	background-color: #EEE;
+	display: table-header-group;
+} */
+.gridCell, .gridHead {
+	border: 1px solid #999999;
+	display: table-cell;
+	padding: 3px 10px;
+}
+/* .gridHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+.gridFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+.gridBody {
+	display: table-row-group;
+} */
