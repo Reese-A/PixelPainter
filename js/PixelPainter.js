@@ -1,13 +1,14 @@
-function createCanvas(num1, num2){
+//creates painting canvas
+function createCanvas(height, length){
   let canvasGrid = document.createElement('div');
-  canvasGrid.className = 'grid';
+  canvasGrid.id = 'pp-canvas';
   pixelPainter.appendChild(canvasGrid);
-  for(i=0;i<num1;i++){
+  for(i=0;i<height;i++){
     let rowDivs = document.createElement('div');
     rowDivs.className = 'gridRow';
     canvasGrid.appendChild(rowDivs);
     let rowCount = document.getElementsByClassName('gridRow');
-    for(j=0;j<num2;j++){
+    for(j=0;j<length;j++){
       let cellDivs = document.createElement('div');
       cellDivs.className = 'gridCell';
       rowCount[i].appendChild(cellDivs);
@@ -17,22 +18,22 @@ function createCanvas(num1, num2){
 
 createCanvas(30,30);
 
-
+//creates blank space between grids
 let emptySpace = document.createElement('h2');
 emptySpace.id = 'blank';
 pixelPainter.appendChild(emptySpace);
 
-
-function createColorGrid(num1, num2){
+//creates color swatch
+function createColorGrid(height, length){
   let colorGrid = document.createElement('div');
-  colorGrid.className = 'colors';
+  colorGrid.id = 'pp-colors';
   pixelPainter.appendChild(colorGrid);
-  for (i = 0; i < num1; i++) {
+  for (i = 0; i < height; i++) {
     let colorRows = document.createElement('div');
     colorRows.className = 'colorRow';
     colorGrid.appendChild(colorRows);
     let colorCount = document.getElementsByClassName('colorRow');
-    for (j = 0; j < num2; j++) {
+    for (j = 0; j < length; j++) {
       let colorCells = document.createElement('div');
       colorCells.className = 'colorCell';
       colorCount[i].appendChild(colorCells);
@@ -40,20 +41,37 @@ function createColorGrid(num1, num2){
   }
 }
 
-createColorGrid(1,8);
+createColorGrid(1,20);
 
-function ran_col() { //function name
-  // var color = '#'; // hexadecimal starting symbol
-  // var letters = ['000000', 'FF0000', '00FF00', '0000FF', 'FFFF00', '00FFFF', 'FF00FF', 'C0C0C0']; //Set your colors here
+
+ //generates a random hex value and saves to color variable
+function ran_col() {
   let color = "#" + ((1 << 24) * Math.random() | 0).toString(16);
   return color;
 }
 
+//sets colors to swatch on page load
 function setColors(){
   colorSelect = document.getElementsByClassName('colorCell');
-  for(let i=0;i<colorSelect.length;i++){
+  colorSelect[0].style.background = 'rgb(255,255,255)';
+  colorSelect[1].style.background = 'rgb(0,0,0)';
+  for(let i=2;i<colorSelect.length;i++){
   colorSelect[i].style.background = ran_col();
   }
 }
 
 setColors();
+
+//changes selected color when clicking swatch buttons
+let currentColor = 'rgb(0,0,0)';
+let swatchButtons = document.getElementsByClassName('colorCell');
+for(let i=0;i<swatchButtons.length;i++){
+  swatchButtons[i].addEventListener('click', selectColor);
+}
+function selectColor(event){
+  currentColor = event.target.style.backgroundColor;
+  console.log(currentColor);
+}
+
+
+
