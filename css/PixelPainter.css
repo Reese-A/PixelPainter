@@ -1,12 +1,8 @@
-.gridCell, .gridHead {
+.gridCell{
 	border: 1px solid #999999;
   display: table-cell;
   width: 15px;
   height: 15px;
-}
-
-.colorRow{
-	display: table-row;
 }
 
 .colorCell{
