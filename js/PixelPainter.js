@@ -19,9 +19,9 @@ function createCanvas(height, length){
 createCanvas(30,30);
 
 //creates blank space between grids
-let emptySpace = document.createElement('h2');
-emptySpace.id = 'blank';
-pixelPainter.appendChild(emptySpace);
+// let emptySpace = document.createElement('h2');
+// emptySpace.id = 'blank';
+// pixelPainter.appendChild(emptySpace);
 
 //creates color swatch
 function createColorGrid(height, length){
@@ -41,13 +41,12 @@ function createColorGrid(height, length){
   }
 }
 
-createColorGrid(1,20);
+createColorGrid(1,16);
 
 
  //generates a random hex value and saves to color variable
 function ran_col() {
   let color = "#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, '0');
-  console.log(color.length);
   console.log(color);
   return color;
 }
@@ -81,22 +80,35 @@ let canvasButtons = document.getElementsByClassName('gridCell');
 for(let i=0;i<canvasButtons.length;i++){
   canvasButtons[i].addEventListener('click', pointPaint);
   canvasButtons[i].addEventListener('mousedown', startPaint);
+  canvasButtons[i].addEventListener('mousedown', pointPaint);
   canvasButtons[i].addEventListener('mouseover', placePaint);
-  canvasButtons[i].addEventListener('mouseup', stopPaint);
+  canvasButtons[i].addEventListener('mouseup', stopPaint); 
 }
-function startPaint() {
+function startPaint(){
   canPaint = true;
+  console.log(canPaint); 
 }
 function stopPaint(){
   canPaint = false;
+  console.log(canPaint); 
 }
 function pointPaint(){
   this.style.backgroundColor = currentColor;
+  console.log(canPaint); 
 }
 function placePaint(){
   if(canPaint === true){
   this.style.backgroundColor = currentColor;
+    console.log(canPaint); 
   }
+}
+let gridElem = document.getElementById('pp-canvas');
+gridElem.addEventListener('mouseleave', checkPaint);
+function checkPaint(){
+  if (canPaint === true){
+    canPaint = false;
+  }
+  console.log(canPaint);
 }
 
 //creates a clear canvas button
@@ -108,9 +120,21 @@ clear.innerHTML = 'Clear Canvas';
 clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', clearCanvas);
 function clearCanvas(event){
-  let defaultGrid = event.target.style.backgroundColor;
+  defaultGrid = event.target.style.backgroundColor;
   let gridCells = document.getElementsByClassName('gridCell');
   for(let i=0;i<gridCells.length;i++){
   gridCells[i].style.backgroundColor = defaultGrid;
   }
+}
+
+//creates an erase button
+let eraseElem = document.createElement('div');
+eraseElem.id = 'erase';
+pixelPainter.appendChild(eraseElem);
+eraseElem.innerHTML = 'Erase';
+eraseButton = document.getElementById('erase');
+eraseButton.addEventListener('click', setErase);
+function setErase(){
+  defaultGrid = event.target.style.backgroundColor;
+  currentColor = defaultGrid;
 }
