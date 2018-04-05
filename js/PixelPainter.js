@@ -15,7 +15,6 @@ function createCanvas(height, length){
     }
   }
 }
-
 createCanvas(30,30);
 
 //creates blank space between grids
@@ -40,7 +39,6 @@ function createColorGrid(height, length){
     }
   }
 }
-
 createColorGrid(1,16);
 
 
@@ -60,7 +58,6 @@ function setColors(){
   colorSelect[i].style.backgroundColor = ran_col();
   }
 }
-
 setColors();
 
 //changes selected color when clicking swatch buttons
@@ -71,7 +68,10 @@ for(let i=0;i<swatchButtons.length;i++){
 }
 function selectColor(event){
   currentColor = event.target.style.backgroundColor;
+  colorDisplay.style.backgroundColor = currentColor;
+  console.log(colorDisplay.style.backgroundColor);
   console.log(currentColor);
+  console.log(event);
 }
 
 //applies current color to canvas
@@ -85,21 +85,18 @@ for(let i=0;i<canvasButtons.length;i++){
   canvasButtons[i].addEventListener('mouseup', stopPaint); 
 }
 function startPaint(){
-  canPaint = true;
-  console.log(canPaint); 
+  canPaint = true; 
 }
 function stopPaint(){
   canPaint = false;
-  console.log(canPaint); 
 }
 function pointPaint(){
   this.style.backgroundColor = currentColor;
-  console.log(canPaint); 
+  console.log(event);
 }
 function placePaint(){
   if(canPaint === true){
-  this.style.backgroundColor = currentColor;
-    console.log(canPaint); 
+  this.style.backgroundColor = currentColor; 
   }
 }
 let gridElem = document.getElementById('pp-canvas');
@@ -108,7 +105,6 @@ function checkPaint(){
   if (canPaint === true){
     canPaint = false;
   }
-  console.log(canPaint);
 }
 
 //creates a clear canvas button
@@ -138,3 +134,10 @@ function setErase(){
   defaultGrid = event.target.style.backgroundColor;
   currentColor = defaultGrid;
 }
+
+//creates an element that displays selected color
+let colorDisplay = document.createElement('div');
+colorDisplay.id = 'display';
+colorDisplay.style.backgroundColor = 'rgb(0,0,0)';
+pixelPainter.appendChild(colorDisplay);
+display.innerHTML = 'Current Color';
