@@ -11,6 +11,9 @@ function createCanvas(height, length){
     for(j=0;j<length;j++){
       let cellDivs = document.createElement('div');
       cellDivs.className = 'gridCell';
+      cellDivs.dataset.num = length * i + j;
+      cellDivs.dataset.row = i;
+      cellDivs.dataset.column = j;
       rowCount[i].appendChild(cellDivs);
     }
   }
@@ -45,7 +48,6 @@ createColorGrid(2,16);
  //generates a random hex value and saves to color variable
 function ran_col() {
   let color = "#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, '0');
-  console.log(color);
   return color;
 }
 
@@ -69,9 +71,6 @@ for(let i=0;i<swatchButtons.length;i++){
 function selectColor(event){
   currentColor = event.target.style.backgroundColor;
   colorDisplay.style.backgroundColor = currentColor;
-  console.log(colorDisplay.style.backgroundColor);
-  console.log(currentColor);
-  console.log(event);
 }
 
 //applies current color to canvas
@@ -82,7 +81,8 @@ for(let i=0;i<canvasButtons.length;i++){
   canvasButtons[i].addEventListener('mousedown', startPaint);
   canvasButtons[i].addEventListener('mousedown', pointPaint);
   canvasButtons[i].addEventListener('mouseover', placePaint);
-  canvasButtons[i].addEventListener('mouseup', stopPaint); 
+  canvasButtons[i].addEventListener('mouseup', stopPaint);
+  canvasButtons[i].addEventListener('click', doFill);
 }
 function startPaint(){
   canPaint = true; 
@@ -92,10 +92,10 @@ function stopPaint(){
 }
 function pointPaint(){
   this.style.backgroundColor = currentColor;
-  console.log(event);
+  console.log(this.dataset);
 }
 function placePaint(){
-  if(canPaint === true){
+  if(canPaint === true && canFill === false){
   this.style.backgroundColor = currentColor; 
   }
 }
@@ -142,3 +142,40 @@ colorDisplay.id = 'display';
 colorDisplay.style.backgroundColor = 'rgb(0,0,0)';
 pixelPainter.appendChild(colorDisplay);
 display.innerHTML = 'Current Color';
+
+//creates a draw button
+let drawElem = document.createElement('div');
+drawElem.id = 'draw';
+pixelPainter.appendChild(drawElem);
+drawElem.innerHTML = 'Draw';
+drawElem.addEventListener('click', stopFill);
+function stopFill(){
+  canFill = false;
+}
+
+//creates a fill button
+let canFill = false;
+let fillElem = document.createElement('div');
+fillElem.id = 'fill';
+pixelPainter.appendChild(fillElem);
+fillElem.innerHTML = 'Fill';
+fillElem.addEventListener('click', startFill)
+function startFill(){
+  canFill = true;
+  canPaint = false;
+}
+// let selectCell = document.querySelectorAll(data)
+let north = '';
+let east = '';
+let south = '';
+let west = '';
+function doFill(){
+  currentRow = this.dataset.row;
+  currentColumn = this.dataset.column;
+  if(canFill === true){
+
+  }
+  console.log(currentRow);
+  console.log(currentColumn);
+  
+}
