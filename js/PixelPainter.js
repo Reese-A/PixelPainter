@@ -39,7 +39,7 @@ function createColorGrid(height, length){
     }
   }
 }
-createColorGrid(1,16);
+createColorGrid(2,16);
 
 
  //generates a random hex value and saves to color variable
@@ -133,6 +133,7 @@ eraseButton.addEventListener('click', setErase);
 function setErase(){
   defaultGrid = event.target.style.backgroundColor;
   currentColor = defaultGrid;
+  colorDisplay.style.backgroundColor = currentColor;
 }
 
 //creates an element that displays selected color

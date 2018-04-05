@@ -1,14 +1,16 @@
+
+
 .gridCell{
   border: 1px solid #999999;
-  display: table-cell;
+  /* display: */
   width: 15px;
   height: 15px;
   background-color: white;
 }
 
 .colorCell{
-	border: 1px solid #999999;
-  display: flex;
+	border: 1px solid black;
+  /* display: flex; */
   width: 30px;
   height: 30px;
 }
@@ -19,16 +21,16 @@
 
 #pp-canvas{
   border: 1px solid black;
-  /* display: flex;
-  flex-wrap: wrap; */
+  display: flex;
+  flex-wrap: wrap;
   width: 510px;
   float: left;
   margin-right: 30px;
 }
 
 #pp-colors{
-  border: 1px solid green;
-  width: 32px;
+  display: flex;
+  width: 6%;
   float: left;
   margin-right: 10px;
 }
